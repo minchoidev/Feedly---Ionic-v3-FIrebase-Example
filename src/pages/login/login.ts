@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular'; // ToastController is to show a Toast message at the bottom of the app as a feedback message
 import { SignupPage } from '../signup/signup';
 import firebase from 'firebase';
 
@@ -12,21 +12,27 @@ export class LoginPage {
   email: string = "";
   password: string = "";
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
 
   }
   
   login() {
-    console.log("login trial");
     
     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
     .then((user) => {
-      debugger;
-      console.log("user: ")
       console.log(user)
+
+      this.toastCtrl.create({
+        message: "Welcome " + user.user.displayName,
+        duration: 3000
+      }).present();
+
     }).catch((err) => {
-      debugger;
       console.log(err)
+      this.toastCtrl.create({
+        message: err.message,
+        duration: 3000
+      }).present();
     })
 
   }
