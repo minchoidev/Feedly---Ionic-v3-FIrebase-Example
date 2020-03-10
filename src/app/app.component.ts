@@ -10,7 +10,7 @@ import { FeedPage } from '../pages/feed/feed';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = FeedPage;  // temporarly set to design FeedPage
+  rootPage:any = LoginPage;  // temporarly set to design FeedPage
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

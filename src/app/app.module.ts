@@ -25,6 +25,7 @@ var firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+
 @NgModule({
   declarations: [
     MyApp,
