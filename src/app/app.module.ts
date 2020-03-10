@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { FeedPage } from '../pages/feed/feed';
 
 import firebase from 'firebase'
 
@@ -28,7 +29,8 @@ firebase.initializeApp(firebaseConfig);
   declarations: [
     MyApp,
     LoginPage,
-    SignupPage
+    SignupPage,
+    FeedPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ firebase.initializeApp(firebaseConfig);
   entryComponents: [
     MyApp,
     LoginPage,
-    SignupPage
+    SignupPage,
+    FeedPage
   ],
   providers: [
     StatusBar,
