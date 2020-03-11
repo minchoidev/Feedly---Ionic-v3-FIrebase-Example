@@ -13,6 +13,7 @@ export class FeedPage {
   posts: any[] = [];
   pageSize: number = 10;  // the number of posts that we get from firebase
   cursor: any;  // it holds the value of the current post
+  infiniteEvent: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.getPosts();
@@ -23,7 +24,7 @@ export class FeedPage {
     this.posts = [];
 
     firebase.firestore().collection("posts").orderBy("created", "desc")
-    .limit(this.pageSize).get()         // if you don't use limit function, it will load all of the posts
+      .limit(this.pageSize).get()         // if you don't use limit function, it will load all of the posts
       .then((docs) => {
 
         docs.forEach((doc) => {
@@ -57,7 +58,7 @@ export class FeedPage {
   loadMorePosts(event) {
 
     firebase.firestore().collection("posts").orderBy("created", "desc").startAfter(this.cursor)
-    .limit(this.pageSize).get()         // if you don't use limit function, it will load all of the posts
+      .limit(this.pageSize).get()         // if you don't use limit function, it will load all of the posts
       .then((docs) => {
 
         docs.forEach((doc) => {
@@ -66,25 +67,29 @@ export class FeedPage {
 
         console.log(this.posts);
 
-        // it's been commented out to prevent not loading posts more after the scroll event is disabled once.
-
-        // if(docs.size < this.pageSize) {
-        //   // all documents have been loaded
-        //   // disable the scroll
-        //   event.enable(false);
-        // } else {
-        //   event.complete(); // to tell the scroll that the loading is complete
-        //   this.cursor = this.posts[this.posts.length - 1];
-        // }
-
-        // to tell the scroll that the loading is complete
-        // if not complete the event, th event won't end
-        event.complete(); 
-        this.cursor = this.posts[this.posts.length - 1];
+        if (docs.size < this.pageSize) {
+          // all documents have been loaded
+          // disable the scroll
+          event.enable(false);
+          this.infiniteEvent = event;
+        } else {
+          event.complete(); // to tell the scroll that the loading is complete
+          this.cursor = this.posts[this.posts.length - 1]; // if not complete the event, th event won't end        
+        }
 
       }).catch((err) => {
         console.log(err);
       })
+  }
+
+  refresh(event) {
+
+    this.getPosts();
+
+    if(this.infiniteEvent) {
+      this.infiniteEvent.enable(true);
+    }
+    event.complete();
   }
 
   ago(time) {
