@@ -31,14 +31,14 @@
     </button>
   </ion-row>
 
-  <ion-card>
+  <ion-card *ngFor="let post of posts">
 
     <ion-item-divider color="danger">
-      Bob Says
+      {{ post.data().owner_name }}
     </ion-item-divider>
 
     <ion-item text-wrap>
-      I am so happy and excited about developing Feedly using Ionic and Firebase!
+      {{ post.data().text }}
     </ion-item>
 
     <ion-row class="bottom-bar">
@@ -56,11 +56,17 @@
       </ion-col>
       <ion-col>
         <button ion-button icon-left clear small color="danger">
-          <small>12 mins ago</small>
+          <small>{{ ago(post.data().created.toDate()) }} ago</small>
         </button>        
       </ion-col>
     </ion-row>
 
   </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="loadMorePosts($event)"> <!-- ion-infinite-scroll emmits a Scroll Event every time when scroll reach to the bottom of the page -->
+    <ion-infinite-scroll-content>
+
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
