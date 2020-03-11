@@ -23,8 +23,39 @@ export class FeedPage {
 
     this.posts = [];
 
-    firebase.firestore().collection("posts").orderBy("created", "desc")
-      .limit(this.pageSize).get()         // if you don't use limit function, it will load all of the posts
+    let query = firebase.firestore().collection("posts").orderBy("created", "desc")
+      .limit(this.pageSize);         // if you don't use limit function, it will load all of the posts
+
+    // if there's any change in the loaded documents, then onSnapshot function will be executed
+    // this function also receives a parameter which contains a snapshot 
+    // and the snapshot object contains all the documents that have undergone some change.
+    // It will be called everytime when some data is changed in the resultset including the initialization.
+
+    // This way the data in that application can be updated as the data on our cloud Firestore updates.
+    // So this is how you can get real time updates in your application from your cloud Firesotre.
+    // However, we should only use this whenever required because it results in net for communication which can slow down your app if you used too much.
+    query.onSnapshot((snapshot) => {
+      let changeDocs = snapshot.docChanges();
+
+      changeDocs.forEach((change) => {
+        if (change.type == "added") {
+          // TODO
+          console.log("Document with id " + change.doc.id + " has been added.");
+        }
+
+        if (change.type == "modified") {
+          // TODO
+          console.log("Document with id " + change.doc.id + " has been modified.");
+        }
+
+        if (change.type == "removed") {
+          // TODO
+          console.log("Document with id " + change.doc.id + " has been removed.");
+        }
+      })
+    })
+
+    query.get()
       .then((docs) => {
 
         docs.forEach((doc) => {
@@ -86,15 +117,20 @@ export class FeedPage {
 
     this.getPosts();
 
-    if(this.infiniteEvent) {
+    if (this.infiniteEvent) {
       this.infiniteEvent.enable(true);
     }
     event.complete();
   }
 
   ago(time) {
-    let difference = moment(time).diff(moment()); // time difference with time and the current time
-    return moment.duration(difference).humanize();  // return the human-readable time form
+    if (time) {
+      let difference = moment(time.toDate()).diff(moment()); // time difference with time and the current time
+      return moment.duration(difference).humanize();  // return the human-readable time form
+    }
+    else {
+      return "NULL";
+    }
   }
 
 }
