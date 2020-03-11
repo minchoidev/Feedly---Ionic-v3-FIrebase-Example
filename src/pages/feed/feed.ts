@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import firebase from 'firebase'
 import moment from 'moment';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-feed',
@@ -15,13 +16,20 @@ export class FeedPage {
   cursor: any;  // it holds the value of the current post
   infiniteEvent: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.getPosts();
   }
 
   getPosts() {
 
     this.posts = [];
+
+    let loading = this.loadingCtrl.create({
+      content: "Loading Feed..."
+    });
+
+    loading.present();  // show loading spinner
 
     let query = firebase.firestore().collection("posts").orderBy("created", "desc")
       .limit(this.pageSize);         // if you don't use limit function, it will load all of the posts
@@ -62,6 +70,8 @@ export class FeedPage {
           this.posts.push(doc);
         })
 
+        loading.dismiss();  // close loading spinner
+
         this.cursor = this.posts[this.posts.length - 1];  // update the cursor
 
         console.log(this.posts);
@@ -80,6 +90,14 @@ export class FeedPage {
       owner_name: firebase.auth().currentUser.displayName
     }).then((doc) => {
       console.log(doc);
+
+      this.text = "";
+      // show toast message that a new feed has been posted successfully
+      let toast = this.toastCtrl.create({
+        message: "Your post has been created successfully.",
+        duration: 3000
+      }).present();
+
       this.getPosts();
     }).catch((err) => {
       console.log(err);
@@ -131,6 +149,18 @@ export class FeedPage {
     else {
       return "NULL";
     }
+  }
+
+  logout() {
+    firebase.auth().signOut().then(() => {
+
+      let toast = this.toastCtrl.create({
+        message: "You have been logged out successfully.",
+        duration: 3000
+      }).present();
+
+      this.navCtrl.setRoot(LoginPage);
+    })
   }
 
 }
