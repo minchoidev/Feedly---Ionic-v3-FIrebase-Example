@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>152645907721-9v3agkqcuu6845isasmtq4a7pbj547fl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.152645907721-9v3agkqcuu6845isasmtq4a7pbj547fl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>152645907721-4rg5q0ad9jg89jh0dn0dh8dfuldcfi9g.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA40eAeBqtk4oxrxkxflBBBpb_T5xpiRLU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>152645907721</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.minseok.feedly</string>
+	<key>PROJECT_ID</key>
+	<string>feedlyapp-77c3f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>feedlyapp-77c3f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:152645907721:ios:642922c4440a5b9ce84fd8</string>
+	<key>DATABASE_URL</key>
+	<string>https://feedlyapp-77c3f.firebaseio.com</string>
+</dict>
+</plist>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "152645907721",
+    "firebase_url": "https://feedlyapp-77c3f.firebaseio.com",
+    "project_id": "feedlyapp-77c3f",
+    "storage_bucket": "feedlyapp-77c3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152645907721:android:6d9c0c209a2f82a4e84fd8",
+        "android_client_info": {
+          "package_name": "com.minseok.feedly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152645907721-4rg5q0ad9jg89jh0dn0dh8dfuldcfi9g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.minseok.feedly",
+            "certificate_hash": "cf8ab9baa217c07f3afcfdb3c27d3898e06b0a33"
+          }
+        },
+        {
+          "client_id": "152645907721-ueqh2f4umsra791u7a5qhq9f20ci26rv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEkwvmGSPxqpK4H1x7ZH2348UArVm5EwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152645907721-ueqh2f4umsra791u7a5qhq9f20ci26rv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
