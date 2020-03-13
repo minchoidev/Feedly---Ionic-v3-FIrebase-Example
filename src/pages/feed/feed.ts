@@ -3,6 +3,8 @@ import { NavController, NavParams, LoadingController, ToastController } from 'io
 import firebase from 'firebase'
 import moment from 'moment';
 import { LoginPage } from '../login/login';
+import { Firebase } from '@ionic-native/firebase';
+import { Token } from '@angular/compiler';
 
 @Component({
   selector: 'page-feed',
@@ -17,8 +19,36 @@ export class FeedPage {
   infiniteEvent: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+    private loadingCtrl: LoadingController, private toastCtrl: ToastController, private firebaseCordova: Firebase) {
     this.getPosts();
+
+    // To test this code, you must build this app and run it on android emulator
+    this.firebaseCordova.getToken().then((token) => {
+      console.log(token)
+
+      this.updateToken(token, firebase.auth().currentUser.uid);
+
+    }).catch((err) => {
+      console.log(err)
+    });
+  }
+
+  updateToken(token: string, uid: string) {
+    // sotre the token for each user inside a document in a new collection 'users'
+    // and inside the users colletion for each document, the id of the document is going to be the unique ID(uid) of the user currently logged in
+    // for which the tokens information is stored inside the document
+
+    firebase.firestore().collection("users").doc(uid).set({ // uid: id of the user currently logged in.
+      token: token,
+      tokenUpdate: firebase.firestore.FieldValue.serverTimestamp()
+    }, {
+      merge: true
+    }).then(() => {
+      console.log("token saved to cloud firstore");
+    }).catch((err) => {
+      console.log(err);
+    })
+
   }
 
   getPosts() {
